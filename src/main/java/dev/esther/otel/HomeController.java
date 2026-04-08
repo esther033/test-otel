@@ -1,5 +1,8 @@
 package dev.esther.otel;
 
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.annotation.Observed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,13 +11,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class HomeController {
+
+    private final ObservationRegistry observationRegistry;
+    public HomeController(ObservationRegistry observationRegistry) {
+        this.observationRegistry = observationRegistry;
+    }
     private static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
     @GetMapping("/")
+    @Observed(name = "home.count")
     public String home() {
         log.info("Home endpoint called");
         return "Hello World!";
     }
+
 
     @GetMapping("/greet/{name}")
     public String greet(@PathVariable String name) {

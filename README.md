@@ -1,4 +1,4 @@
-# resource : https://github.com/danvega/ot
+# Resource : https://github.com/danvega/ot
 
 # OpenTelemetry with Spring Boot 4.0 Demo
 
